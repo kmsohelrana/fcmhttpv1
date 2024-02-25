@@ -1,0 +1,22 @@
+{
+    "name": "kmsohelrana/fcmhttpv1",
+    "description": "fcm httpv1 packages",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kmsohelrana\\Fcmhttpv1\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md Sohel Rana",
+            "email": "info.kmsohel@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^7.2"
+
+    }
+}
