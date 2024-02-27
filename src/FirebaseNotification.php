@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Kmsohelrana\Fcmhttpv1\FcmTokenGenerate;
 class FirebaseNotification
 {
-
-
     protected $token;
     protected $topic;
     protected $notification_type;
@@ -68,6 +66,10 @@ class FirebaseNotification
             throw new Exception('Token format error. Received: ' . gettype($this->token) . ". Expected type: string");
         }
 
+        if ($this->notification_type != null && !is_string($this->notification_type)) {
+            throw new Exception("A notification need to have at least one notification type : data or notification. Please select only one type of notification type.");
+        }
+
         return $this->prepareSend();
     }
 
@@ -114,26 +116,14 @@ class FirebaseNotification
                 "body" => $encodedData,
             ]);
 
-            if ( $request->getStatusCode() == 200 ) {
+            Log::info("[Notification] SENT pp", [$encodedData]);
 
-                $body = $request->getBody();
-
-                Log::info('push notification send success');
-
-                if ( $body ) {
-                    return json_decode($body);
-                }
-            }
-
-            Log::info("[Notification] SENT", [$encodedData]);
-
-            $response = $request->getBody();
-
-            return $response;
+            return true;
         } catch (Exception $e) {
+
             Log::error("[Notification] ERROR", [$e->getMessage()]);
 
-            return $e;
+            return false;
         }
     }
 }
