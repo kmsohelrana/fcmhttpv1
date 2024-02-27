@@ -23,7 +23,7 @@ To send a push notification, you can use the FcmHttpV1 facade:
 use Kmsohelrana\Fcmhttpv1\FirebaseNotification;
 
         $notify = new FirebaseNotification();
-        $notify->setToken("eFmeOQMiSKSkk9Q4WJmh5Y:APA91bHIql-59sh83t68ncRGalpT1H................")
+         $response = $notify->setToken("eFmeOQMiSKSkk9Q4WJmh5Y:APA91bHIql-59sh83t68ncRGalpT1H................")
             ->setNotificationType("data")
             ->setMessage([
                 "title" => "Breaking Town hall Session will be start at the Evening",
@@ -35,11 +35,11 @@ use Kmsohelrana\Fcmhttpv1\FirebaseNotification;
 Handling Responses
 You can handle responses from the FCM server:
 
-if ($response->success()) {
+if ($response) {
     // Notification sent successfully
 } else {
     // Handle error
-    $error = $response->getError();
+    
     // Log or process the error
 }
 
