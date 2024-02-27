@@ -7,12 +7,12 @@ Installation
 1. Composer Installation
 Install the package via Composer:
 
-composer require kmsohelrana/fcmhttpv1
+        composer require kmsohelrana/fcmhttpv1
 
 2. Configuration
 After installation, publish the configuration file:
 
-php artisan vendor:publish --provider="Kmsohelrana\Fcmhttpv1\Providers\FcmServiceProvider" --tag=config
+        php artisan vendor:publish --provider="Kmsohelrana\Fcmhttpv1\Providers\FcmServiceProvider" --tag=config
 
 This will create a fcm_config.php file in your config directory.
 
