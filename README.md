@@ -24,7 +24,7 @@ use Kmsohelrana\Fcmhttpv1\FirebaseNotification;
 
         $notify = new FirebaseNotification();
          $response = $notify->setToken("eFmeOQMiSKSkk9Q4WJmh5Y:APA91bHIql-59sh83t68ncRGalpT1H................")
-            ->setNotificationType("data")
+            ->setNotificationType("data") // both way you can send .it can be data or notification you can use
             ->setMessage([
                 "title" => "Breaking Town hall Session will be start at the Evening",
                 "body" => "Some enjoyable games have been arranged for you as part of our Town hall Program Today. There will be Presents for the winners as well!  You all are cordially invited.",
