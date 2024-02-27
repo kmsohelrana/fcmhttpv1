@@ -9,14 +9,11 @@ use Kmsohelrana\Fcmhttpv1\FcmTokenGenerate;
 class FirebaseNotification
 {
 
-    protected $title;
-    protected $body;
-    protected $icon;
-    protected $click_action;
+
     protected $token;
     protected $topic;
-    protected $description;
     protected $notification_type;
+    protected $customMessage;
 
     /**
      *Title of the notification.
@@ -27,47 +24,6 @@ class FirebaseNotification
         $this->notification_type = $notification_type;
         return $this;
     }
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    /**
-     *Body of the notification.
-     *@param string $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-        return $this;
-    }
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    /**
-     *Icon of the notification.
-     *@param string $icon
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-        return $this;
-    }
-
-    /**
-     *Link of the notification when user click on it.
-     *@param string $click_action
-     */
-    public function setClickAction($click_action)
-    {
-        $this->click_action = $click_action;
-        return $this;
-    }
-
     /**
      *Token used to send notification to specific device. Unusable with setTopic() at same time.
      *@param string $string
@@ -85,6 +41,11 @@ class FirebaseNotification
     public function setTopic($topic)
     {
         $this->topic = $topic;
+        return $this;
+    }
+    public function setMessage($customMessage)
+    {
+        $this->customMessage = $customMessage;
         return $this;
     }
 
@@ -107,21 +68,6 @@ class FirebaseNotification
             throw new Exception('Token format error. Received: ' . gettype($this->token) . ". Expected type: string");
         }
 
-        // Title verification
-        if (!isset($this->title)) {
-            throw new Exception('Empty notification title. Please add a title to the notification with the setTitle() method.');
-        }
-
-        // Body verification
-        if (!isset($this->body)) {
-            throw new Exception('Empty notification body. Please add a body to the notification with the setBody() method');
-        }
-
-        // Icon verification
-        if ($this->icon !=null && !file_exists(public_path($this->icon))) {
-            throw new Exception("Icon not found. Please verify the path of your icon(Path of the icon you tried to set: " . asset($this->icon));
-        }
-
         return $this->prepareSend();
     }
 
@@ -132,32 +78,14 @@ class FirebaseNotification
         } elseif (isset($this->topic)) {
             $data["topic"] = $this->topic;
         }
-        if (isset($this->notification_type) && $this->notification_type == "notification") {
-            $notification = $this->notification_type;
-        } else {
-            $notification = "data";
-        }
 
-        if(isset($this->title)){
-            $data[$notification]["title"] = $this->title;
-        }
-        if(isset($this->body)){
-            $data[$notification]["body"] = $this->body;
-        }
-        if(isset($this->description)){
-            $data[$notification]["description"] = json_encode($this->description);
-        }
-        if(isset($this->icon)){
-            $data[$notification]["image"] = asset($this->icon);
-        }
-        if(isset($this->click_action)){
-            $data[$notification]["click_action"] = asset($this->click_action);
+        if (isset($this->customMessage)) {
+            $data[$this->notification_type] = $this->customMessage;
         }
 
         $encodedData = json_encode([
             "message"=>$data
         ]);
-
 
         Log::info("Message Body :", [$encodedData]);
 

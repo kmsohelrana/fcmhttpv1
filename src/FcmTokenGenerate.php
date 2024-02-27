@@ -13,8 +13,6 @@ class FcmTokenGenerate
     {
         $data["access_token"] = null;
 
-
-
         $fcm_json = file_get_contents(config('fcm_config.fcm_json_path'));
 
         $authConfig = json_decode($fcm_json, true);
