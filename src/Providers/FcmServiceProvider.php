@@ -20,7 +20,7 @@ class FcmServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/config/fcm_config.php' => config_path('fcm_config.php'),
+            __DIR__ . '/../config/fcm_config.php' => config_path('fcm_config.php'),
         ], 'fcmhttpv1');
     }
 }
