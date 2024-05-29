@@ -32,6 +32,19 @@ use Kmsohelrana\Fcmhttpv1\FirebaseNotification;
                 ..................
             ])->send();
 
+            Example of json:
+
+            New Message Format What we prepared and will send: 
+            {
+                   "message":{
+                      "token":"bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...",
+                      "notification":{
+                        "body":"This is an FCM notification message!",
+                        "title":"FCM Message"
+                  }
+           }
+} 
+
 
 Conclusion
 Congratulations! You have successfully installed and used the Laravel FCM HTTP v1 Package for push notifications.
